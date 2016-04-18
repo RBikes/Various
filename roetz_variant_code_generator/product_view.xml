@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Toevoegen attribuutcode en parent aan overzicht attribuutwaarden -->
+
+    	<record model="ir.ui.view" id="product_att_value_code_tree_view">
+    		<field name="name">product.attribute.value.add.code.field</field>
+    		<field name="model">product.attribute.value</field>
+    		<field name="inherit_id" ref="product.variants_tree_view"/>
+    		<field name="arch" type="xml">
+			<field name="name" position="before">
+				<field name="att_value_code"/>
+			</field>
+                     <field name="name" position="after">
+                           <field name="parent_attr_value"/>
+				<field name="image_sequence"/>
+			</field>
+		</field>	
+	</record>
+
+<!-- Aangepaste view voor toevoegen hoofdcode productsjabloon en code generator knop (Uitgeschakeld)
+
+       <record model="ir.ui.view" id="product_att_value_code_button">
+    		<field name="name">product.attribute.value.add.code.button</field>
+    		<field name="model">product.template</field>
+    		<field name="inherit_id" ref="product.product_template_only_form_view"/>
+    		<field name="arch" type="xml">
+                  <field name="attribute_line_ids" position="before">
+                            <group>
+                                <field name="variant_main_code"/>
+                            </group>
+                            <button class="oe_inline oe_stat_button" string="Gen. Images"  name="generate_images" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Gen. Codes"  name="generate_codes" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Calc Cost Price" name="calc_cost_prices" type="object" icon="fa-cogs"/>
+                   </field>                
+             </field>		
+	</record>
+-->
+
+
+<!-- Aangepaste view voor toevoegen hoofdcode productsjabloon en code generator knop -->
+
+       <record model="ir.ui.view" id="product_att_value_code_button">
+    		<field name="name">product.attribute.value.add.code.button</field>
+    		<field name="model">product.template</field>
+    		<field name="inherit_id" ref="product.product_template_only_form_view"/>
+    		<field name="arch" type="xml">
+		   <xpath expr="//page[@string='Variants']" position="replace">
+                    <page name="variants" string="Variants">
+                        <div class="oe_right">
+                            <!--<group>
+                                <field name="variant_main_code"/>
+                            </group> -->
+                            <button class="oe_inline oe_stat_button" string="Gen. Images"  name="generate_images" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Gen. Codes"  name="generate_codes" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Gen. EANs"  name="generate_EAN_codes" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Calc Cost Price" name="calc_cost_prices" type="object" icon="fa-cogs"/>
+                            <button class="oe_inline oe_stat_button" string="Variant Prices"  name="111" type="action" icon="fa-strikethrough"/>
+                            <button class="oe_inline oe_stat_button" name="113" type="action" icon="fa-sitemap">
+                                <field string="List of Variants" name="product_variant_count" widget="statinfo" />
+                            </button>
+                        </div>
+                        <field name="attribute_line_ids" widget="one2many_list" context="{'show_attribute': False}">
+                            <tree string="Variants" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="attribute_id"/>
+                                <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('attribute_id', '=', attribute_id)]" context="{'default_attribute_id': attribute_id}"/>
+                            </tree>
+                        </field>
+                    </page>
+                 </xpath>
+		</field>	
+	</record>
+
+
+
+<!-- Aanpassen zoekfunctionaliteit voor producten, verplaatst naar aparte module
+
+	<record id="product_search_form_view_roetz" model="ir.ui.view">
+            <field name="name">product.product.search_roetz</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="replace">
+                   <field name="name" string="Product" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
+                </field>
+
+                <field name="product_variant_ids" position="replace">
+                    <field name="attribute_value_ids"/>
+                </field>
+                <field name="name" position="after">
+                   <field name="product_tmpl_id" string="Product Template"/>
+                </field>
+
+
+                <xpath expr="//group[@string='Group by...']" position="before">
+			<group expand="0" string="Model">
+                    		<filter string="Road" domain="[('name','like', 'Road')]"/>
+                    		<filter string="Retro" domain="[('name','like', 'Retro')]"/>
+                    		<filter string="Vigour" domain="[('name','like', 'Vigour')]"/>
+                    		<filter string="Vigour" domain="[('name','like', 'Vigour+')]"/>
+				<separator/>
+				<filter string="2014" domain="[('default_code','like', '-14')]"/>
+                            <filter string="2015" domain="[('default_code','like', '-15')]"/>
+				<filter string="2016" domain="[('default_code','like', '-16')]"/>
+			</group>
+			<group expand="0" string="Type">
+                    		<filter string="Men" domain="[('name','like', 'Men')]"/>
+                    		<filter string="Ladies" domain="[('name','like', 'Ladies')]"/>
+				<separator/>
+                            <filter string="1-Speed" domain="[('default_code','like', '-1-')]"/>
+                            <filter string="5-Speed" domain="[('default_code','like', '-5-')]"/>
+			</group>
+			<group expand="0" string="Colour">
+                    		<filter string="Ruby Red" domain="[('default_code','like', '-RR-')]"/>
+                    		<filter string="Matt Black" domain="[('default_code','like', '-MB-')]"/>
+                    		<filter string="Matt Anthracite" domain="[('default_code','like', '-MA-')]"/>
+                    		<filter string="Denim Blue" domain="[('default_code','like', '-DB-')]"/>
+                    		<filter string="Sky Blue" domain="[('default_code','like', '-SB-')]"/>
+                    		<filter string="Wine Red" domain="[('default_code','like', '-WR-')]"/>
+                    		<filter string="Olive Green" domain="[('default_code','like', '-OG-')]"/>
+                    		<filter string="Pastel Green" domain="[('default_code','like', '-PG-')]"/>
+                    		<filter string="Cream White" domain="[('default_code','like', '-CW-')]"/>
+			</group>
+			<group expand="0" string="Size">
+                    		<filter string="Small" domain="[('default_code','like', '-Sm')]"/>
+                    		<filter string="Medium" domain="[('default_code','like', '-Md')]"/>
+                    		<filter string="Large" domain="[('default_code','like', '-La')]"/>
+                    		<filter string="Extra Large" domain="[('default_code','like', '-Xl')]"/>
+			</group>
+			<group expand="0" string="Fenders and Chainguard">
+                    		<filter string="Wooden Fenders" domain="[('default_code','like', '-Wf')]"/>
+                    		<filter string="Alloy Fenders" domain="[('default_code','like', '-Af')]"/>
+			</group>
+			<group expand="0" string="Carriers">
+                    		<filter string="Front Carrier and Basket" domain="[('default_code','like', '-Fb')]"/>
+                    		<filter string="Front Carrier and Crate" domain="[('default_code','like', '-Fc')]"/>
+				<separator/>
+                    		<filter string="Rear Carrier" domain="[('default_code','like', '-Rc')]"/>
+			</group>
+			<group expand="0" string="Saddle">
+                    		<filter string="Regular Saddle" domain="[('default_code','like', '-Gs')]"/>
+                    		<filter string="Brooks Leather Saddle" domain="[('default_code','like', '-Bl')]"/>
+                    		<filter string="Cambium" domain="[('default_code','like', '-Rl')]"/>
+			</group>
+			<group expand="0" string="Grips">
+                    		<filter string="Retro Grips" domain="[('default_code','like', '-Rg')]"/>
+                    		<filter string="Cork Grips" domain="[('default_code','like', '-Cg')]"/>
+			</group>
+			<group expand="0" string="Lights">
+                    		<filter string="Spanninga Lights" domain="[('default_code','like', '-Sp')]"/>
+                    		<filter string="Axa Greenline" domain="[('default_code','like', '-Ag')]"/>
+			</group>
+                </xpath>
+
+            </field>
+        </record>
+
+-->
+
+<!-- product.product_product_tree_view -->
+              
+    	<record model="ir.ui.view" id="product.product_product_tree_view_custom">
+    		<field name="name">product.product_product_tree_view.custom</field>
+    		<field name="model">product.product</field>
+    		<field name="inherit_id" ref="product.product_product_tree_view"/>
+    		<field name="arch" type="xml">
+		  <xpath expr="//tree[@string='Product Variants']" position="replace">
+		    <tree string="Product Variants">
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="attribute_value_ids" widget="many2many_tags" invisible="1"/>
+                    <!-- <field name="lst_price"/> -->
+                    <field name="price" invisible="not context.get('pricelist',False)"/>
+                    <field name="standard_price"/>
+                    <field name="uom_id"/>
+                    <field name="ean13"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+		    </tree>
+		  </xpath>
+		</field>	
+	</record>
+
+<!-- Product Form View aanpassingen -->
+
+         <record id="product.product_template_form_view_custom" model="ir.ui.view">
+            <field name="name">product.product.common.form.custom</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+               <field name="image_medium" position="after">
+                <group>		   
+                  <field name="link" string="Load image from file?"/>
+                </group>
+               </field>
+               <field name="lst_price" position="after">
+                  <field name="variant_cost_price" string="Variant Cost Price"/>			   
+                  <field name="cost_price_update" string="Last Cost Price Update"/>				  
+               </field>
+            </field>
+         </record>
+
+<!-- Product Form View aanpassing product Templates -->
+	 
+         <record id="product.template_template_form_view_custom" model="ir.ui.view">
+            <field name="name">product.template.common.form.custom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+               <field name="standard_price" position="after">
+                    <button name="calc_cost_prices" type="object" string="Compute price from BoM"
+                            attrs="{'invisible': [('cost_method', '!=', 'standard')]}"
+                             groups="stock_account.group_inventory_valuation"/>
+               </field>
+               <group name="general" position="inside">
+                    <field name="cost_price_variable"/>
+                    <field name="cost_price_update"/>
+                    <field name="kanban_nr" string="Kanban Nr"/>
+               </group>
+               <field name="name" position="after">
+                  <field name="variant_main_code" string="Main Code"/>			  
+               </field>
+               <field name="description_sale" position="after">
+                  <separator string="Website Product Description" colspan="4"/>
+                  <field name="web_product_description" string="Website Product Description"/>	
+                  <separator string="Website Product Specifications" colspan="4"/>
+                  <field name="product_specs" string="Product Specifications"/>			  
+               </field>
+            </field>
+         </record>	
+
+ <!-- Cost price Update Menu and Actions -->
+
+        <record id="cost_price_update_action" model="ir.actions.act_window">
+            <field name="name">Compute Price Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_compute_price_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="cost_price_update_action" name="Update Cost Prices" 
+		id="update_cost_prices-act"
+		parent="mrp.menu_mrp_configuration" 
+		groups="mrp.group_mrp_routings,product.group_mrp_properties"/>
+		 
+<!-- Product Tree View aanpassing product Templates -->	 
+         <record id="product.template_product_tree_view_custom" model="ir.ui.view">
+            <field name="name">product.template.common.tree.custom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+               <field name="name" position="before">
+                  <field name="variant_main_code" string="Main Code"/>			   
+               </field>
+            </field>
+         </record>		 
+		 
+<!-- Product Tree View aanpassing kostprijsberekening -->
+
+         <record id="product.product_template_tree_view_custom" model="ir.ui.view">
+            <field name="name">product.template.common.tree.custom</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+               <field name="standard_price" position="replace">
+                  <field name="standard_price" string="Standard Cost Price"/>	
+                  <field name="variant_cost_price" string="Variant Cost Price"/>			   
+               </field>
+            </field>
+         </record>
+
+    </data>
+</openerp>

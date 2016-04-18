@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Add button to create SEPA ID -->
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">Create_Sepa_Identifier</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_position" position="after">
+                    <label for="Incasso"/>
+                    <div name="create_sepa">
+                        <field name="sepaID"/>
+                        <button colspan="2" name="create_sepa_id" string="Gen. SEPA ID" type="object" icon="gtk-execute" class="oe_inline"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+-->
+    </data>
+</openerp>

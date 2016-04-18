@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Product Form View aanpassing product Templates -->
+	 
+         <record id="stock.view_template_property_form_lead_time" model="ir.ui.view">
+            <field name="name">stock.view.template.property.lead_time</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <label for="sale_delay" position="replace">
+                    <label for="sale_delay" string = "Standard Customer Lead Time"/>
+                </label>
+            </field>
+         </record>
+
+         <record id="product.template_common_form_view_lead_time" model="ir.ui.view">
+            <field name="name">product.template.common.form.lead_time</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <group name="sale_condition" position="inside"> 
+                    <label for="sale_delay_not_avail" string = "Customer Lead Time Not Available"/>
+                    <div>                   
+                       <field name="sale_delay_not_avail" attrs="{'readonly':[('sale_ok','=',False)]}" class="oe_inline" style="vertical-align:baseline"/> days
+                    </div> 
+                </group>
+            </field>
+         </record>
+
+<!-- Product Form View aanpassingen 
+
+         <record id="product.product_template_form_view_lead_time" model="ir.ui.view">
+            <field name="name">testform</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+               <field name="default_code" position="after">
+                  <field name="sale_delay" string="Current Customer Lead Time"/>			   				  
+               </field>
+            </field>
+         </record> -->
+    </data>
+</openerp>

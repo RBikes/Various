@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="view_compute_price_wizard" model="ir.ui.view">
+            <field name="name">Compute all cost prices from BoM</field>
+            <field name="model">wizard.price</field>
+            <field name="arch" type="xml">
+              <form string="Change Cost Prices">
+                  <separator string="Calculate Cost Prices"/>
+                  <footer>
+                      <button name="compute_from_bom" string="Calc prices from BoM" type="object" class="oe_highlight"/>
+                      or
+                      <button string="Cancel" class="oe_link" special="cancel" />
+                  </footer>
+              </form>
+            </field>
+        </record>
+<!--
+        <record id="action_view_compute_price_wizard" model="ir.actions.act_window">
+            <field name="name">Compute Price Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_compute_price_wizard"/>
+            <field name="target">new</field>
+        </record>
+-->
+	</data>
+</openerp>

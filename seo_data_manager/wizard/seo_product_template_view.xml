@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="seo_product_title_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.title.detail.view</field>
+             <field name="model">seo.title.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEOProducDetails">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="supplier"/>
+						<field name="category"/>
+						<field name="description"/>						
+                	</group>
+                    <footer>
+                        <button name="get_title_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_title_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Details</field>
+             <field name="res_model">seo.title.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_product_category_title_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.category.title.detail.view</field>
+             <field name="model">seo.category.title.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEOProductCategoryDetails">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="category"/>
+                	</group>
+                    <footer>
+                        <button name="get_title_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_category_title_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Categroy Details</field>
+             <field name="res_model">seo.category.title.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_product_keyword_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.keyword.detail.view</field>
+             <field name="model">seo.keyword.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Details">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="supplier"/>
+						<field name="category"/>
+						<field name="description"/>						
+                	</group>
+                    <footer>
+                        <button name="get_keyword_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_keyword_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Details</field>
+             <field name="res_model">seo.keyword.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_product_category_keyword_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.category.keyword.detail.view</field>
+             <field name="model">seo.category.keyword.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Details">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="category"/>
+                	</group>
+                    <footer>
+                        <button name="get_keyword_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_category_keyword_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Details</field>
+             <field name="res_model">seo.category.keyword.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+            	
+      <record id="seo_product_description_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.description.detail.view</field>
+             <field name="model">seo.description.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Details">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="supplier"/>
+						<field name="category"/>
+						<field name="description"/>						
+                	</group>
+                    <footer>
+                        <button name="get_description_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_description_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Details</field>
+             <field name="res_model">seo.description.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_product_category_description_detail_view" model="ir.ui.view">
+             <field name="name">seo.product.categoy.description.detail.view</field>
+             <field name="model">seo.category.description.detail</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Details">
+                	<group col='4'>
+                		<field name="name"/>
+						<field name="category"/>
+                	</group>
+                    <footer>
+                        <button name="get_description_detail" string="Get Detail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_seo_product_description_detail" model="ir.actions.act_window">
+             <field name="name">SEO Product Details</field>
+             <field name="res_model">seo.description.detail</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_product_success_update_view" model="ir.ui.view">
+             <field name="name">SEO Product Success Update Details</field>
+             <field name="model">success.update</field>
+             <field name="arch" type="xml">
+                <form string="SEO Success Details">
+                		<field name="name" readonly='True' style="height:30px;"/>
+						<b>Notes: SEO Information not updates as per product template those marked as "Not Update SEO Details".</b>                		
+                    <footer>
+                        <button string="Close" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+         <record id="action_seo_product_success_update" model="ir.actions.act_window">
+             <field name="name">SEO Product Success Update Details</field>
+             <field name="res_model">success.update</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+       
+       <record id="seo_category_success_update_view" model="ir.ui.view">
+             <field name="name">SEO Category Success Update Details</field>
+             <field name="model">success.update.category</field>
+             <field name="arch" type="xml">
+                <form string="SEO Success Details">
+                		<field name="name" readonly='True' style="height:30px;"/>
+                		<b>Notes: SEO Information not updates as per category template those marked as "Not Update SEO Details".</b>
+ 	               <footer>
+                        <button string="Close" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+         </record>
+         <record id="action_seo_category_success_update" model="ir.actions.act_window">
+             <field name="name">SEO Category Success Update Details</field>
+             <field name="res_model">success.update.category</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">new</field>
+       </record>
+	</data>
+</openerp>

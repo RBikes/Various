@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Add SEPA sequence -->
+
+	<record model="ir.sequence.type" id="seq_type_res_partner_sepa_id">
+		<field name="name">sepa_seq</field>
+		<field name="code">res.partner.sepa</field>
+	</record>
+	<record model="ir.sequence" id="seq_res_partner_sepa_id">
+		<field name="name">sepa_seq</field>
+		<field name="code">res.partner.sepa</field>
+		<field name="prefix">NL22ZZ524885430000-C0</field>
+		<field name="padding">0</field>
+	</record>
+
+<!-- Add button to create SEPA ID -->
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">Create_Sepa_Identifier</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_position" position="after">
+                    <label for="Incasso"/>
+                    <div name="create_sepa">
+                        <field name="sepaID"/>
+                        <button colspan="2" name="create_sepa_id" string="Gen. SEPA ID" type="object" icon="gtk-execute" class="oe_inline"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+-->
+    </data>
+</openerp>

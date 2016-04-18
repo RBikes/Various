@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<!-- Inherited Product template form to add product MetaInformation --> 
+	<record id="view_product_template_form_view_inherited" model="ir.ui.view">
+        <field name="name">Producttemplate form view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//page[@string='Variants']" position="after">
+        		<page string="Meta Information" name="Meta Information">
+        			<group>
+        			<field name="not_update_seo_details"/>
+        			<field name="website_meta_title" string="Title"/>
+        			<field name="website_meta_keywords" string="Keywords"/>
+					<field name="website_meta_description" string="Description"/>
+					</group>				
+	       		</page>
+        	</xpath>
+        </field>
+    </record>
+    
+    <record id="view_product_public_category_form_view_inherited" model="ir.ui.view">
+        <field name="name">Product Public Category form view</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+        	<sheet position="inside">
+        		<notebook>
+        		<page string="Meta Information" name="Meta Information">
+        			<group>
+        			<field name="not_update_seo_details"/>
+        			<field name="website_meta_title" string="Title"/>
+        			<field name="website_meta_keywords" string="Keywords"/>
+					<field name="website_meta_description" string="Description"/>
+					</group>				
+	       		</page>
+	       		</notebook>
+        	</sheet>
+        </field>
+    </record>
+    
+    	<record id="seo_product_template_form_view" model="ir.ui.view">
+             <field name="name">seo.product.template.form</field>
+             <field name="model">seo.product.template</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Template" create='false' delete='false'>
+                	<header>
+                		<button name="generate" type="object" string="Generate" class="oe_highlight"/>
+                	</header>
+                	<sheet>
+                	<separator name="SEO Product Template" string="SEO Product Template"/>
+                	<group>
+                		<group>
+                		<field name="title"/>
+                		<field name="keyword"/>
+						<field name="description"/>                		
+                		</group>
+                		<group>
+						<button name="get_data" string="Get Title Details" type="object" style="width:165px;" /><newline/>
+						<button name="get_keyword_data" string="Get Keyword Details" type="object" style="width:165px;"/><newline/>
+						<button name="get_description_data" string="Get Description Details" type="object" style="width:165px;"/>
+						</group>
+                	</group>
+                	</sheet>
+                </form>
+             </field>
+         </record>
+		<record id="seo_product_template_tree_view" model="ir.ui.view">
+             <field name="name">SEO Product Template Form</field>
+             <field name="model">seo.product.template</field>
+             <field name="arch" type="xml">
+                <tree string="SEO Product Template" create='false' delete='false'>
+	                	<field name="title"/>
+						<field name="keyword"/>
+						<field name="description"/>
+                </tree>
+             </field>
+         </record>
+        <record id="action_seo_product_template" model="ir.actions.act_window">
+             <field name="name">SEO Product Template</field>
+             <field name="res_model">seo.product.template</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+       </record>
+
+       <menuitem id="menu_seo_data_manager" name="SEO Data Manager" parent="base.menu_base_partner"/>
+	   <menuitem
+            name="SEO Product Template"
+            action="action_seo_product_template"
+            id="menu_seo_product_template"
+            parent="menu_seo_data_manager"/>
+	   
+		<record id="seo_product_category_form_view" model="ir.ui.view">
+             <field name="name">seo.product.category.form</field>
+             <field name="model">seo.product.category</field>
+             <field name="arch" type="xml">
+                <form string="SEO Product Category" create='false' delete='false'>
+                	<header>
+                		<button name="generate" type="object" string="Generate" class="oe_highlight"/>
+                	</header>
+                	<sheet>
+                	<separator name="SEO Category Template" string="SEO Category Template"/>
+                	<group>
+                		<group>
+                		<group>
+                		<field name="title"/>
+                		<field name="keyword"/>
+						<field name="description"/>                		
+                		</group>
+                		<group>
+						<button name="get_data" string="Get Title Details" type="object" style="width:165px;" /><newline/>
+						<button name="get_keyword_data" string="Get Keyword Details" type="object" style="width:165px;"/><newline/>
+						<button name="get_description_data" string="Get Description Details" type="object" style="width:165px;"/>
+						</group>
+                	</group>				
+                	</group>
+                	</sheet>
+                </form>
+             </field>
+         </record>
+         <record id="seo_product_category_tree_view" model="ir.ui.view">
+             <field name="name">SEO Category Template Form</field>
+             <field name="model">seo.product.category</field>
+             <field name="arch" type="xml">
+                <tree string="SEO Category Template" create='false' delete='false'>
+	                	<field name="title"/>
+						<field name="keyword"/>
+						<field name="description"/>
+                </tree>
+             </field>
+         </record>
+         <record id="action_seo_product_category" model="ir.actions.act_window">
+             <field name="name">SEO Category Template</field>
+             <field name="res_model">seo.product.category</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+       </record>
+
+	   <menuitem
+            name="SEO Category Template"
+            action="action_seo_product_category"
+            id="menu_seo_product_category"
+            parent="menu_seo_data_manager"/>
+      
+      <record id="view_website_config_settings_template" model="ir.ui.view">
+			<field name="name">Website config Template setting</field>
+			<field name="model">website.config.settings</field>
+			<field name="inherit_id" ref="website.view_website_config_settings"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/div/group[@string='Language']" position="after">
+				<group string="SEO Template">
+					<field name="seo_product_separator"/>
+					<field name="seo_product_multi_separator"/>
+					<field name="is_replace_character" />
+				</group>
+				</xpath>
+		   </field>
+	   </record>	 
+</data>
+</openerp>

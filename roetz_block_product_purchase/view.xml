@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Add block field to picking form 
+
+         <record id="product.purchase_block" model="ir.ui.view">
+            <field name="name">product.purchase.block</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_template_form_view_custom"/>
+            <field name="arch" type="xml">
+               <field name="uom_po_id" position="after">
+                    <field name="blocked" string="Block Product for Purchasing"/>
+               </field>
+            </field>
+         </record>
+-->
+
+    </data>
+</openerp>

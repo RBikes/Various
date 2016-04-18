@@ -1,0 +1,19 @@
+<openerp>
+<data>
+ 	<record id="acc_background" model="ir.attachment">
+		<field name="name">acc_background.jpg</field>
+		<field name="datas_fname">acc_background.jpg</field>
+		<field name="res_model">ir.ui.view</field>
+		<field name="type">url</field>
+		<field name="url">/roetz_website_theme/static/src/img/custom/acc_background.jpg</field>
+	</record>
+	
+	<record id="home_background" model="ir.attachment">
+		<field name="name">home_background.jpg</field>
+		<field name="datas_fname">home_background.jpg</field>
+		<field name="res_model">ir.ui.view</field>
+		<field name="type">url</field>
+		<field name="url">/roetz_website_theme/static/src/img/custom/home_background.jpg</field>
+	</record>
+</data>
+</openerp>

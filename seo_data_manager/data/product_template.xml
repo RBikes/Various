@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='1'>
+        <record id="product_template" model="seo.product.template">
+            <field name="name">SEO Product Template</field>
+            <field name="title"></field>
+            <field name="keyword"></field>
+            <field name="description"></field>
+            <field name="separator">-</field>
+           <field name="multi_separator">-</field> 
+        </record>
+        <record id="product_category" model="seo.product.category">
+            <field name="name">SEO Category Template</field>
+            <field name="title"></field>
+            <field name="keyword"></field>
+            <field name="description"></field>
+            <field name="separator">-</field>
+            <field name="multi_separator">-</field>
+        </record>
+	</data>
+</openerp>

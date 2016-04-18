@@ -1,0 +1,189 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+import openerp
+import logging
+from openerp.osv import fields, osv
+from openerp import tools
+from openerp import SUPERUSER_ID
+
+_logger = logging.getLogger(__name__)
+
+class crm_lead_custom(osv.osv):
+
+    _inherit = 'crm.lead'
+    _columns = {'url': fields.char('URL'),
+                'source': fields.char('Source'),
+               }
+
+class crm_helpdesk_categ(osv.osv):
+    """ Categories for Leads """
+    _name = "crm.helpdesk.categ"
+    _description = "Helpdesk Case Category"
+    _columns = {
+        'name': fields.char('Name', required=True),
+        #'id': fields.many2one('crm.helpdesk','Category'),
+        }
+
+class crm_helpdesk_subcateg(osv.osv):
+    """ Subcategory of Case """
+    _name = "crm.helpdesk.subcateg"
+    _description = "Helpdesk Case Subcategory"
+    _columns = {
+        'name': fields.char('Name', required=True),
+        'categ_id': fields.many2one('crm.helpdesk.categ', 'Main Category'),
+        }
+
+class crm_helpdesk_action(osv.osv):
+    """ Actions for helpdesk cases """
+    _name = "crm.helpdesk.action"
+    _description = "Actions for Helpdesk cases"
+    _columns = {
+        'name': fields.char('Name', required=True),
+        }
+
+class crm_helpdesk_custom(osv.osv):
+
+    _inherit = 'crm.helpdesk'
+
+    _columns = {'action_id': fields.many2one('crm.helpdesk.action', 'Action', help="Action to be executed by co-worker"),
+                'categ_id': fields.many2one('crm.helpdesk.categ', 'Category', domain="[]"), #domain="[('object_id','=',object_id)]"),
+                'subcateg_id': fields.many2one('crm.helpdesk.subcateg', 'Subcategory', domain="[('categ_id','=',categ_id)]"),
+                'partner_id': fields.many2one('res.partner', 'Partner', domain="[('is_company','=',True)]"),
+                'contact_id': fields.many2one('res.partner', 'Contact', domain="[('is_company','=',False)]"),
+                'product_category_id': fields.many2one('product.category', 'Product Category'),
+                'RefNr': fields.char('Reference', size=10),
+                'user_id': fields.many2one('res.users', 'Responsible'),
+                #'section_id': fields.char('Sales Team'),
+                }
+
+    _defaults = { 'RefNr': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'crm.helpdesk'),
+                }
+	
+    def on_change_partner_id(self, cr, uid, ids, partner_id, context=None):
+		values = {}
+		if partner_id:
+			partner = self.pool.get('res.partner').browse(cr, uid, partner_id, context=context)
+			values = {'email_from': partner.email}
+			return {'value': values, 'domain':{'contact_id': [('parent_id', '=', partner.id)]}}
+		return {}
+
+    def on_change_contact_id(self, cr, uid, ids, partner_id, context=None):
+        values = {}
+        if partner_id:
+            contact = self.pool.get('res.partner').browse(cr, uid, partner_id, context=context)
+            values = {'email_from': contact.email, 'partner_id': contact.id}
+            return {'value': values}
+        else:
+           contact = self.pool.get('res.partner').browse(cr, uid, partner_id, context=context)
+           values = {'partner_id': contact.id}
+           return {'value': values}
+        return {}
+
+    def on_change_RefNr(self, cr, uid, ids, contact_id, context=None):
+        return {'domain':{'contact_id': [('is_company','=',False)]}}
+
+    def onchange_user_id(self, cr, uid, ids, user_id, context=None):
+        add_follower(self, cr, uid, ids, user_id)
+
+    def add_follower(self, cr, uid, ids, user_id, context=None):
+        user_pid = self.pool.get('res.users').browse(cr, uid, user_id, context=context).partner_id.id
+        _logger.warning(user_pid)
+        helpdesk_rec = self.browse(cr, uid, ids, context=context)
+        if helpdesk_rec:
+            user_id = helpdesk_rec.user_id
+            helpdesk_id = helpdesk_rec.id
+            #_logger.warning(helpdesk_id)
+            following = None
+            search_domain = [('res_model','=','crm.helpdesk'),('res_id','=',helpdesk_id),('partner_id','=',user_pid)]
+            following=self.pool.get('mail.followers').search(cr, uid, search_domain, context=context)
+            _logger.warning(following)
+            if following == []:
+                cr.execute("INSERT INTO mail_followers (res_model, res_id, partner_id) values('crm.helpdesk', %s, %s" %(helpdesk_id, user_pid) + ");")
+        return {}
+
+    def write(self, cr, uid, ids, values, context=None):
+        values.get('user_id')
+        """ Override to add case management: open/close dates """
+        if values.get('state'):
+            if values.get('state') in ['draft', 'open'] and not values.get('date_open'):
+                values['date_open'] = fields.datetime.now()
+            elif values.get('state') == 'close' and not values.get('date_closed'):
+                values['date_closed'] = fields.datetime.now()
+        return super(crm_helpdesk, self).write(cr, uid, ids, values, context=context)
+        add_follower(self, cr, uid, ids, user_id)
+        
+
+"""
+    def create(self, cr, uid, values, context=None):
+        """ Chatter override :
+            - subscribe uid
+            - subscribe responsible user (user_pid)
+            - subscribe followers of parent
+            - log a creation message
+        """
+        if context is None:
+            context = {}
+
+        if context.get('tracking_disable'):
+            return super(mail_thread, self).create(
+                cr, uid, values, context=context)
+
+        # subscribe uid unless asked not to
+        if not context.get('mail_create_nosubscribe'):
+            pid = self.pool['res.users'].browse(cr, SUPERUSER_ID, uid).partner_id.id
+            resp_user = values.get('user_id')
+            resp_pid = self.pool['res.users'].browse(cr, SUPERUSER_ID, resp_user).partner_id.id
+            message_follower_ids = values.get('message_follower_ids') or []  # webclient can send None or False
+            message_follower_ids.append([4, pid])
+            if pid != resp_pid:
+                message_follower_ids.append([4, resp_pid])                
+            values['message_follower_ids'] = message_follower_ids
+        thread_id = super(mail_thread, self).create(cr, uid, values, context=context)
+
+        # automatic logging unless asked not to (mainly for various testing purpose)
+        if not context.get('mail_create_nolog'):
+            ir_model_pool = self.pool['ir.model']
+            ids = ir_model_pool.search(cr, uid, [('model', '=', self._name)], context=context)
+            name = ir_model_pool.read(cr, uid, ids, ['name'], context=context)[0]['name']
+            self.message_post(cr, uid, thread_id, body=_('%s created') % name, context=context)
+
+        # auto_subscribe: take values and defaults into account
+        create_values = dict(values)
+        for key, val in context.iteritems():
+            if key.startswith('default_'):
+                create_values[key[8:]] = val
+        self.message_auto_subscribe(cr, uid, [thread_id], create_values.keys(), context=context, values=create_values)
+
+        # track values
+        track_ctx = dict(context)
+        if 'lang' not in track_ctx:
+            track_ctx['lang'] = self.pool.get('res.users').browse(cr, uid, uid, context=context).lang
+        if not context.get('mail_notrack'):
+            tracked_fields = self._get_tracked_fields(cr, uid, values.keys(), context=track_ctx)
+            if tracked_fields:
+                initial_values = {thread_id: dict.fromkeys(tracked_fields, False)}
+                self.message_track(cr, uid, [thread_id], tracked_fields, initial_values, context=track_ctx)
+        return thread_id
+"""
+
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

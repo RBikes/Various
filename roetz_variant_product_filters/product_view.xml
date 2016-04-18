@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Aanpassen zoekfunctionaliteit voor producten -->
+
+	<record id="product_search_form_view_roetz" model="ir.ui.view">
+            <field name="name">product.product.search_roetz</field>
+            <field name="model">product.product</field>
+           <!-- <field name="mode">primary</field> -->
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+<!--
+                <field name="name" position="replace">
+                   <field name="name" string="Product" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
+                </field>
+
+                <field name="product_variant_ids" position="replace">
+                    <field name="attribute_value_ids"/>
+                </field>
+                <field name="name" position="after">
+                   <field name="product_tmpl_id" string="Product Template"/>
+                </field>
+-->
+
+                <xpath expr="//group[@string='Group by...']" position="before">
+			<group expand="0" string="Model">
+                    		<filter string="Road" domain="[('name','like', 'Road')]"/>
+                    		<filter string="Retro" domain="[('name','like', 'Retro')]"/>
+                    		<filter string="Vigour" domain="[('name','like', 'Vigour')]"/>
+                    		<filter string="Vigour+" domain="[('name','like', 'Vigour+')]"/>
+				<separator/>
+				<filter string="2014" domain="[('default_code','like', '14-')]"/>
+				<filter string="2015" domain="[('default_code','like', '15-')]"/>
+				<filter string="2016" domain="[('default_code','like', '16-')]"/>
+			</group>
+			<group expand="0" string="Type">
+                    		<filter string="Men" domain="[('name','like', 'Men')]"/>
+                    		<filter string="Ladies" domain="[('name','like', 'Ladies')]"/>
+				<separator/>
+                            <filter string="1-Speed" domain="[('default_code','like', '-1-')]"/>
+                            <filter string="5-Speed" domain="[('default_code','like', '-5-')]"/>
+			</group>
+			<group expand="0" string="Colour">
+                    		<filter string="Ruby Red" domain="[('default_code','like', '-RR-')]"/>
+                    		<filter string="Matt Black" domain="[('default_code','like', '-MB-')]"/>
+                    		<filter string="Matt Anthracite" domain="[('default_code','like', '-MA-')]"/>
+                    		<filter string="Denim Blue" domain="[('default_code','like', '-DB-')]"/>
+                    		<filter string="Sky Blue" domain="[('default_code','like', '-SB-')]"/>
+                    		<filter string="Wine Red" domain="[('default_code','like', '-WR-')]"/>
+                    		<filter string="Olive Green" domain="[('default_code','like', '-OG-')]"/>
+                    		<filter string="Pastel Green" domain="[('default_code','like', '-PG-')]"/>
+                    		<filter string="Cream White" domain="[('default_code','like', '-CW-')]"/>
+			</group>
+			<group expand="0" string="Size">
+                    		<filter string="Small" domain="[('default_code','like', '-Sm-')]"/>
+                    		<filter string="Medium" domain="[('default_code','like', '-Md-')]"/>
+                    		<filter string="Large" domain="[('default_code','like', '-La-')]"/>
+                    		<filter string="Extra Large" domain="[('default_code','like', '-Xl-')]"/>
+			</group>
+			<group expand="0" string="Fenders and Chainguard">
+                    		<filter string="Wooden Fenders" domain="[('default_code','like', '-Wf')]"/>
+                    		<filter string="Alloy Fenders" domain="[('default_code','like', '-Af')]"/>
+			</group>
+			<group expand="0" string="Carriers">
+                    		<filter string="No Front Carrier" domain="[('default_code','not like', '-F')]"/>
+                    		<filter string="Front Carrier and Basket" domain="[('default_code','like', '-Fb')]"/>
+                    		<filter string="Front Carrier and Crate" domain="[('default_code','like', '-Fc')]"/>
+				<separator/>
+                    		<filter string="No Rear Carrier" domain="[('default_code','not like', '-Rc')]"/>
+                    		<filter string="Rear Carrier" domain="[('default_code','like', '-Rc')]"/>
+			</group>
+			<group expand="0" string="Saddle">
+                    		<filter string="Regular Saddle" domain="[('default_code','like', '-Gs')]"/>
+                    		<filter string="Brooks Leather Saddle" domain="[('default_code','like', '-Bl')]"/>
+                    		<filter string="Cambium" domain="[('default_code','like', '-Bc')]"/>
+			</group>
+			<group expand="0" string="Grips">
+                    		<filter string="Retro Grips" domain="[('default_code','like', '-Rg')]"/>
+                    		<filter string="Cork Grips" domain="[('default_code','like', '-Cg')]"/>
+			</group>
+			<group expand="0" string="Lights">
+                    		<filter string="No Lights" domain="[('default_code','not like', '-Sp'),('default_code','not like', '-Ag')]"/>
+                    		<filter string="Spanninga Lights" domain="[('default_code','like', '-Sp')]"/>
+                    		<filter string="Axa Greenline" domain="[('default_code','like', '-Ag')]"/>
+			</group>
+                    <!--<filter string='Product Template' name="template_id" domain="[]" context="{'group_by' : 'product_tmpl_id'}"/> -->
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

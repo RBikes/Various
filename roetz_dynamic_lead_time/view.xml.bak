@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Product Form View aanpassing product Templates -->
+	 
+         <record id="product.template_template_form_view_custom" model="ir.ui.view">
+            <field name="name">product.template.common.form.custom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <field name="sale_delay" position="replace">
+                    <field name="sale_delay" string = "Standard Lead Time" attrs="{'readonly':[('sale_ok','=',False)]}" class="oe_inline" style="vertical-align:baseline"/> days
+                </field>
+                <group name="sale_condition" position="after">
+                  <group name="dyn_leadtime">
+                      <label for="sale_delay_not_avail"/>
+                      <div>                   
+                       <field name="sale_delay_not_avail" attrs="{'readonly':[('sale_ok','=',False)]}" class="oe_inline" style="vertical-align:baseline"/> days
+                      </div>
+                  </group>
+                </group>
+            </field>
+         </record>
+
+    </data>
+</openerp>

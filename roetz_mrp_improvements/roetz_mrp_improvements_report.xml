@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            string="Production Order with BoM" 
+            id="action_report_production_order_wbom" 
+            model="mrp.production" 
+            name="roetz_mrp_improvements.report_mrporder_wBoM" 
+            file="mrp.report_mrporder_wBoM" 
+            report_type="qweb-pdf"
+        />
+
+    </data>
+</openerp>
