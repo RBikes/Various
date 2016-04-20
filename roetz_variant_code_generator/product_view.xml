@@ -162,7 +162,7 @@
 
 <!-- product.product_product_tree_view -->
               
-    	<record model="ir.ui.view" id="product.product_product_tree_view_custom">
+    	<record model="ir.ui.view" id="product_product_tree_view_custom">
     		<field name="name">product.product_product_tree_view.custom</field>
     		<field name="model">product.product</field>
     		<field name="inherit_id" ref="product.product_product_tree_view"/>
@@ -186,7 +186,7 @@
 
 <!-- Product Form View aanpassingen -->
 
-         <record id="product.product_template_form_view_custom" model="ir.ui.view">
+         <record id="product_template_form_view_custom" model="ir.ui.view">
             <field name="name">product.product.common.form.custom</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
@@ -205,7 +205,7 @@
 
 <!-- Product Form View aanpassing product Templates -->
 	 
-         <record id="product.template_template_form_view_custom" model="ir.ui.view">
+         <record id="template_template_form_view_custom" model="ir.ui.view">
             <field name="name">product.template.common.form.custom</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
@@ -250,7 +250,7 @@
 		groups="mrp.group_mrp_routings,product.group_mrp_properties"/>
 		 
 <!-- Product Tree View aanpassing product Templates -->	 
-         <record id="product.template_product_tree_view_custom" model="ir.ui.view">
+         <record id="template_product_tree_view_custom" model="ir.ui.view">
             <field name="name">product.template.common.tree.custom</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_tree_view"/>
@@ -263,7 +263,7 @@
 		 
 <!-- Product Tree View aanpassing kostprijsberekening -->
 
-         <record id="product.product_template_tree_view_custom" model="ir.ui.view">
+         <record id="product_template_tree_view_custom" model="ir.ui.view">
             <field name="name">product.template.common.tree.custom</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_product_tree_view"/>
