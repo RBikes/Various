@@ -138,6 +138,10 @@ header a.navbar-brand img {
   visibility: visible;
   opacity: 1;
   } 
+
+  .margincorrectie {
+  margin-top: 0px;
+  }
 }
 
 @media (min-device-width: 1025px) {
@@ -154,7 +158,7 @@ header a.navbar-brand img {
   margin-bottom: 0px;
   padding-left: 30px;
   padding-right: 30px;
-  padding-top: 100px;
+  padding-top: 90px;
   transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -165,6 +169,10 @@ header a.navbar-brand img {
   visibility: visible;
   opacity: 1;
   } 
+
+  .margincorrectie {
+  margin-top: 0px !important;
+  }
 }
 
 @media screen 
@@ -184,7 +192,7 @@ header a.navbar-brand img {
   margin-bottom: 0px;
   padding-left: 30px;
   padding-right: 30px;
-  padding-top: 100px;
+  padding-top: 90px;
   transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -195,12 +203,31 @@ header a.navbar-brand img {
   visibility: visible;
   opacity: 1;
   }
+
+  .margincorrectie {
+  margin-top: 0px;
+  }
 }
 
-@media (max-width: 989px){
-.margincorrectie {
-  margin-top: 10px;
+@media (max-width: 1024px){
+  .margincorrectie {
+  margin-top: 20px;
+  }
 }
+
+@media (min-width: 990px) and (max-width: 1200px){
+.blokomhoog {
+  position: relative;
+bottom: 6px;
+}
+}
+
+/* Fix for the Cover */
+
+.oe_structure.csc-current-slide {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important; 
 }
 
 /* -----  Fonts */
@@ -231,7 +258,7 @@ h7 {font-family: 'Open Sans'; color: #fff; font-size: 18px;}
 .wizard .text-muted {text-transform: none !important;}
 a {color: #666666;}
 .text-blue {color:#89181A !important;}
-.subtitel {font-weight: 100 !important; font-size: 18px !important; color: #89181A !important; text-transform: uppercase !important;}
+.subtitel {font-weight: 100 !important; font-size: 16px !important; color: #89181A !important; text-transform: uppercase !important;}
 .text-muted {font-weight: 300 !important; color: #89181A !important;}
 td .text-muted {text-transform: none !important;}
 .subtitelklein {font-weight: 100 !important; font-size: 15px !important; color: #89181A !important; text-transform: uppercase !important;}
@@ -255,7 +282,7 @@ a:focus, a:hover {color: #89181A;}
 .navbar-nav>li>a:hover {color: #000 !important; border-bottom: solid 2px #89181A;}
 .navbar-default .navbar-nav>.active>a {background-color: #fff !important; color: #000 !important; border-bottom: solid 2px #89181A;}
 .navbar-right {position: relative; bottom: -10px;}
-.navbar-default {background-color: rgba(255, 255, 255, 1) !important; margin-bottom: 2px !important; width: 100% !important;}
+.navbar-default {background-color: rgba(255, 255, 255, 1) !important; margin-bottom: 6px !important; width: 100% !important;}
 .navbar-default {border-color: rgba(255, 255, 255, 0.2) !important;}
 .navbar-nav>.open>a {padding-left: 5px !important; background-color: #ccc !important;}
 .parallax .s_parallax .oe_custom_bg .oe_img_bg {background-position: 0px -450px;}
@@ -291,8 +318,28 @@ ul.dropdown-menu.js_user_menu {min-width: 50px !important;}
 .vakje {max-height: 220px; overflow: hidden; margin-left: 20px; background-color: #fff; border-bottom: 1px solid #000; border-top: 1px solid #000;}
 .image img {width: 170%; margin-left: -220px; margin-top: 20px;}
 img.img-responsive.center-block {width: 70%;}
-.vakje2 {max-height: 220px; overflow: hidden; margin-left: 20px; background-color: #fff; border-bottom: 1px solid #000; border-top: 1px solid #000;}
-.image2 img {width: 180%; margin-left: -280px; margin-top: 10px;}
+.vakje2 {max-height:220px; overflow: hidden; margin-left: 20px; background-color: #fff; border-bottom: 1px solid #000; border-top: 1px solid #000;}
+/*.image2 img {width: 180%; margin-left: -280px; margin-top: 10px;}*/
+
+@media (min-width: 1200px) {
+.image2 img {width: 150%; margin-left: -250px; margin-top: 5px;}
+}
+
+@media (min-width: 990px) and (max-width: 1199px) {
+.image2 img {width: 180%; margin-left: -260px; margin-top: 15px;}
+}
+
+@media (min-width: 770px) and (max-width: 989px) {
+.image2 img {width: 160%; margin-left: -260px; margin-top: 5px;}
+}
+
+@media (max-width: 769px) {
+.image2 img {left: -520px; margin-left: 30%; position: relative; margin-top: 5px;}
+.vakje2 {max-height: 300px;}
+}
+
+.vakje3 {max-height:350px; overflow: hidden; margin-left: 20px; background-color: #fff; border-bottom: 1px solid #000; border-top: 1px solid #000;}
+.image3 img {width: 200%; margin-left: -150px; margin-top: 10px;}
 
 /* --- Fietsenblokje */
 .fietsvakje {max-height: 220px; overflow: hidden; margin-left: 20px; background-color: #fff; border-bottom: 1px solid #000; border-top: 1px solid #000;}
@@ -306,6 +353,11 @@ img.img-responsive.center-block {width: 70%;}
 .top:hover h4 {visibility: visible;}
 .bottom:hover h4 {visibility: visible;}
 .pricehomepage {height:50px; position: absolute; top: 0px; right: 0px; padding: 0px 0px 15px 15px; width: 100%;}
+
+@media (max-width: 989px) {
+.pricehomepage {z-index: 100;}
+}
+
 div.overlay:hover {opacity: 0;}
 .overlay { -webkit-transition:opacity 0.2s ease; -moz-transition:opacity 0.2s ease; -o-transition:opacity 0.2s ease;}
 
@@ -439,7 +491,7 @@ h4.active {color: #89181A !important; border-bottom: 2px solid #89181A; padding-
 		color: #89181A;
 		text-shadow: 0 0 1px rgba(0,0,0,0.1);
 		font-size: 1.3em;
-		font-family: 'amertype_md_btmedium';	}
+		font-family: 'Open Sans';	}
 	.flat-table td {
 		color: #616265;
 		padding: 0.1em 1em 0.1em 0.2em;
@@ -1113,12 +1165,20 @@ p.alert alert-danger {
     text-align:left;
 }
       .modal-body {
-          padding:5px !important;
+          padding: 10px 20px 20px 15px; !important;
       }
       .modal-content {
           border-radius:0;
-      }
+          width: auto;
+      }  
+
       .modal-dialog img {
           text-align:center;
           margin:0 auto;
       }
+center-bike-lightbox{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

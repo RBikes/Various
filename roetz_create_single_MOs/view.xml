@@ -4,8 +4,8 @@
 
 <!-- Add checkbox "single piece manufacturing" to product procurment tab -->
 
-         <record id="template_template_form_view_customMRP" model="ir.ui.view">
-            <field name="name">product.template.common.form.customMRP</field>
+         <record id="roetz_create_single_MOs_product_template_form_view_customMRP" model="ir.ui.view">
+            <field name="name">roetz_create_single_MOs.product.template.common.form.customMRP</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
@@ -17,31 +17,16 @@
 
 <!-- Add procurement reference to manufacturing order -->
 
-<!-- Stefan 2016-04-22: this group does not exist in 8.0
-         <record id="production_procurement_ref" model="ir.ui.view">
-            <field name="name">mrp.production.procurement.ref</field>
+         <record id="roetz_create_single_MOs.mrp_production_procurement_ref" model="ir.ui.view">
+            <field name="name">roetz_create_single_MOs.mrp.production.procurement.ref</field>
             <field name="model">mrp.production</field>
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
-               <group name="general" position="inside">
+               <field name="move_prod_id" position="after">
                     <field name="procurement_id"/>
-               </group>
-            </field>
-         </record>	
--->
-
-<!-- Add production_ids field to procurement view
-
-         <record id="view_procurment_form_inherit2" model="ir.ui.view">
-            <field name="name">procurement.order.form.inherit2</field>
-            <field name="model">procurement.order</field>
-            <field name="inherit_id" ref="mrp.view_procurement_form_inherit"/>
-            <field name="arch" type="xml">
-               <field name="production_id" position="replace">
-                    <field name="production_ids" attrs="{'invisible': [('production_ids','=',False)]}"/>
                </field>
             </field>
-         </record>
--->
+         </record>	
+
     </data>
 </openerp>

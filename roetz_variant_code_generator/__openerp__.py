@@ -32,10 +32,10 @@
     'sequence': 6,
     'website' : 'www.roetz-bikes.com',
     'images' : [],
-    'depends' : ['base','product','mrp'],
+    'depends' : ['base','product','mrp','product_extended'],
     'demo' : [],
     'data' : [
-        'product_view.xml',
+#        'product_view.xml',
         'wizard/price_wizard.xml'
     ],
     'test' : [

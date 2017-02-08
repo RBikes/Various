@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Product Form View aanpassing product Templates -->
+	 
+         <record id="roetz_product_picking_hint.form_view_custom_picking" model="ir.ui.view">
+            <field name="name">roetz_product_picking_hint.form.custom.picking</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+               <group name="weight" position="before">
+                 <separator string="Product Picking Hints" colspan="4"/>
+                    <field name="picking_hint" string=""/>
+               </group>
+            </field>
+         </record>	
+
+
+    </data>
+</openerp>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="roetz_purchase_proforma_status">
+        <field name="name">roetz_purchase_proforma_status.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="after">
+                <field name="pf_po_payed"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="roetz_purchase_proforma_status_form">
+        <field name="name">roetz_purchase_proforma_status.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="pf_po_payed"/>
+            </field>
+        </field>
+    </record>  
+  
+</data>
+</openerp>

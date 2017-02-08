@@ -145,6 +145,7 @@
                                         <select name="shipping_id" class="form-control">
                                             <option value="-0.1" t-att-value="shipping_id">Choose a method of delivery</option>
                                             <option value="0">Ship to home address</option>
+                                            <option value="-0.25">Pick up at Roetz Fair Factory</option>
 						   <option value="-0.5" t-att-value="shipping_id">Select a Roetz dealer nearby</option>
                                             <t t-foreach="shippings" t-as="shipping">
                                                 <option t-att-value="shipping.id"

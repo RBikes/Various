@@ -37,7 +37,7 @@ class mrp_production(osv.osv):
         'material_check': fields.boolean(string='Materials?'),
         'issue': fields.char(string='Issue', size=128),
         'sequence2': fields.integer(string='Sequence', size=4),
-        'partner_id': fields.related('move_prod_id', 'partner_id', 'display_name', type='char', readonly = True, string='Partner')
+        'partner2_id': fields.related('move_prod_id', 'partner_id', 'display_name', type='char', readonly = True, string='Partner')
         }
 
 

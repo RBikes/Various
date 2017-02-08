@@ -4,8 +4,8 @@
 
 <!-- Add block field to picking form -->
 
-         <record id="picking_form_block_picking" model="ir.ui.view">
-            <field name="name">stock.picking.form.block.picking</field>
+         <record id="roetz_block_delivery.picking_form_block_picking" model="ir.ui.view">
+            <field name="name">roetz_block_delivery.picking.form.block.picking</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">

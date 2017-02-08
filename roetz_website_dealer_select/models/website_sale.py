@@ -7,6 +7,9 @@ from openerp.http import request
 from openerp.tools.translate import _
 from openerp.addons.website.models.website import slug
 from openerp.addons.web.controllers.main import login_redirect
+import logging
+_logger = logging.getLogger(__name__)
+	
 
 class website_dealer(http.Controller):
     _inherit = 'website_sale'
@@ -81,7 +84,7 @@ class website_dealer(http.Controller):
                 country_ids = request.registry.get('res.country').search(cr, uid, [('code', '=', country_code)], context=context)
                 if country_ids:
                     checkout['country_id'] = country_ids[0]
-
+                    
         values = {
             'countries': countries,
             'states': states,

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='view_sale_config_settings_default_email_template'>
+            <field name='name'>sale.setting.default.email.template</field>
+            <field name='model'>sale.config.settings</field>
+            <field name='inherit_id' ref="base_setup.view_sale_config_settings"/>
+            <field name='arch' type='xml'>
+                <div name="linkedin" position="before">
+                    <group name="sale_default_template_id" string="Default Template">
+                        <field name='sale_default_template_id'  style="width:40%"/>
+                    </group>
+                </div>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='view_sale_order_default_email_template'>
+            <field name='name'>sale.order.deafult.email.template</field>
+            <field name='model'>sale.order</field>
+            <field name='inherit_id' ref="sale.view_order_form"/>
+            <field name='arch' type='xml'>
+                <data>
+                    <button name="action_quotation_send" states="draft" class="oe_highlight" position="replace">
+                        <button name="action_quotation_send_default_template" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                    </button>
+
+                    <button name="action_quotation_send" states="sent,progress,manual" position="replace">
+                        <button name="action_quotation_send_default_template" string="Send by Email" type="object" states="sent,progress,manual" groups="base.group_user"/>
+                    </button>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

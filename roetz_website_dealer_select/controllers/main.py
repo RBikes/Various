@@ -46,3 +46,38 @@ class main(http.Controller):
             dealers.append(dealer)
 
         return dealers
+
+    @http.route(['/shop/pickup'], type='json', auth="public")
+    def pickup(self, distance=None, lat=None, lng=None, **post):
+        offset = 0
+        limit = 500
+
+        request.cr.execute('''SELECT
+                res_partner.id,
+                res_partner.display_name as name,
+                res_partner.street,
+                res_partner.zip,
+                res_partner.city,
+                res_partner.phone,
+                res_partner.website,
+                res_partner.country_id,
+                res_partner.partner_latitude as lat,
+                res_partner.partner_longitude as lng,
+                earth_distance(ll_to_earth( '%s','%s' ), ll_to_earth(res_partner.partner_latitude, res_partner.partner_longitude)) as distance           
+            FROM res_partner
+            WHERE res_partner.active=True
+            AND res_partner.grade_id=3
+            ORDER BY distance
+            LIMIT %s OFFSET %s''', (lat, lng, limit, offset))
+
+        result = request.cr.dictfetchall()
+
+        if not result:
+            return {'error':'query failed'}
+
+        dealers = []
+
+        for dealer in result:
+            dealers.append(dealer)
+
+        return dealers

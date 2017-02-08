@@ -4,7 +4,7 @@
 
 <!-- Add block field to picking form 
 
-         <record id="purchase_block" model="ir.ui.view">
+         <record id="product.purchase_block" model="ir.ui.view">
             <field name="name">product.purchase.block</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_template_form_view_custom"/>

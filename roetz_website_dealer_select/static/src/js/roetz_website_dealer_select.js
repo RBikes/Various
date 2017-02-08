@@ -1,4 +1,3 @@
-
 /**
  * Geocode an address via Google API
  *
@@ -32,7 +31,7 @@ var geocodeAddress = function (address) {
             dfd.resolve(data.geometry.location);
         } else {
             $('.js_nearby_dealer_table').trigger( "Geocode_FormattedAddressResult", [ 'Roetz-Bikes Head Quarter' ]  );
-            dfd.resolve({'lat': 52.350616, 'lng': 4.832619}); // roetz ottho
+            dfd.resolve({'lat': 52.383999, 'lng': 4.921472}); // roetz Fair Factory
            // dfd.reject('Geocoding of address failed');
         }
     });
@@ -50,6 +49,22 @@ var geocodeAddress = function (address) {
 var queryNearbyDealers = function(location) {
     var dfd = jQuery.Deferred();
     var url = '/shop/nearby_dealers';
+
+    openerp.jsonRpc(
+        url, 'method_call' /* ignored method */,
+        {'distance': 20, 'lat': location.lat, 'lng': location.lng})
+        .then(function (data) {
+            dfd.resolve(data);
+        }).fail(function() {
+            dfd.reject('Querying nearby dealers failed');
+        });
+
+    return dfd.promise();
+}
+
+var queryPickup = function(location) {
+    var dfd = jQuery.Deferred();
+    var url = '/shop/pickup';
 
     openerp.jsonRpc(
         url, 'method_call' /* ignored method */,
@@ -184,7 +199,7 @@ var renderNearbyDealers = function(dealers) {
 }
 
 var reprocess = function() {
-    if ($('select[name=shipping_id]').val() != "-0.5") {
+    if ($('select[name=shipping_id]').val() != "-0.5" && $('select[name=shipping_id]').val() != "-0.25") {
         return false;
     }
 
@@ -194,14 +209,27 @@ var reprocess = function() {
     address.zip = $('input[name=zip]').val();
     address.country = $('select[name=country_id] option:selected').text();
 
-    geocodeAddress(address)
-        .then(queryNearbyDealers)
-        .then(function(dealers) {
-            renderNearbyDealers(dealers);
-        })
-        .fail(function(error) {
-            renderNearbyDealers([]);
-        });
+    if ($('select[name=shipping_id]').val() == "-0.5") {
+        geocodeAddress(address)
+            .then(queryNearbyDealers)
+            .then(function(dealers) {
+                renderNearbyDealers(dealers);
+            })
+            .fail(function(error) {
+                renderNearbyDealers([]);
+            });
+    }
+  
+    if ($('select[name=shipping_id]').val() == "-0.25") {
+        geocodeAddress(address)
+            .then(queryPickup)
+            .then(function(dealers) {
+                renderNearbyDealers(dealers);
+            })
+            .fail(function(error) {
+                renderNearbyDealers([]);
+            });
+    }
 };
 
 $(document).ready(function () {
@@ -212,6 +240,7 @@ $(document).ready(function () {
         var $snipping = $(".js_shipping", oe_website_sale);
         var $dealerTbl = $(".js_nearby_dealer_table", oe_website_sale);
         var $dealerMap = $(".js_nearby_dealer_map", oe_website_sale);
+        var $pickupHeader = $(".js_pickup", oe_website_sale);
 
         // do this via a timer as website_sale.js allready has run and binded a change event
         setTimeout(function() {
@@ -224,8 +253,9 @@ $(document).ready(function () {
                 var $selects = $snipping.find("select");
 
                 $snipping.toggle(value == -1);
+                $pickupHeader.toggle(value == -0.25);
                 $dealerTbl.toggle(value == -0.5);
-                $dealerMap.toggle(value == -0.5);
+                $dealerMap.toggle(value == -0.5 || value == -0.25);
 
                 $inputs.attr("readonly", value <= 0 ? null : "readonly").prop("readonly", value <= 0 ? null : "readonly");
                 $selects.attr("disabled", value <= 0 ? null : "disabled").prop("disabled", value <= 0 ? null : "disabled");
@@ -247,7 +277,7 @@ $(document).ready(function () {
 
         // upon submission of the form, we must set the select box to '-new address-'
         $shippingDifferent.closest('form').on('submit', function() {
-            if ($('select[name=shipping_id]', oe_website_sale).val() == -0.5) {
+            if ($('select[name=shipping_id]').val() == "-0.5" || $('select[name=shipping_id]').val() == "-0.25") {
                 $('select[name=shipping_id] option[value="-1"]', oe_website_sale).prop('selected', true);
 
                 var $inputs = $snipping.find("input");
@@ -261,8 +291,10 @@ $(document).ready(function () {
         // upon page load, check current value and hide/show appropiate element
         var value = +$shippingDifferent.val();
         $snipping.toggle(value == -1);
+        $pickupHeader.toggle(value == -0.25);
         $dealerTbl.toggle(value == -0.5);
-        $dealerMap.toggle(value == -0.5);
+        $dealerMap.toggle(value == -0.5 || value == -0.25);
+
 
     });
 

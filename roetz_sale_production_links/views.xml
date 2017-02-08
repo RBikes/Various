@@ -1,0 +1,55 @@
+<openerp>
+    <data>
+        <record id="act_so_2_mo" model="ir.actions.act_window">
+            <field name="name">Production</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'search_default_sale_order_id': active_id}</field>
+        </record>
+
+        <record id="sale_order_form_buttons" model="ir.ui.view">
+            <field name="name">sale.order.form.buttons</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="attributes">
+                    <attribute name="class">oe_left</attribute>
+                </xpath>
+                <xpath expr="//h1" position="after">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button class="oe_inline oe_stat_button" type="action"
+                                name="%(act_so_2_mo)d"
+                                attrs="{'invisible': [('production_count', '=', 0)]}"
+                                icon="fa-gears">
+                            <field string="Production" name="production_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath>
+                    <field name="date_order" position="after">
+                        <field name="mfg_expected_date" string="Last Mfg Expected Date"/>
+                    </field>
+            </field>
+        </record>
+
+        <record id="mrp_production_sale_info_search_view" model="ir.ui.view">
+            <field name="name">mrp.production.sale.info.search</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <!--<field name="partner_id" string="Customer"/>-->
+                    <field name="sale_order_id" string="Sale Order"/>
+                </field>
+                <filter string="Product" position="before">
+                    <filter string="Customer" icon="terp-accessories-archiver"
+                            domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Sale Order" icon="terp-accessories-archiver"
+                            domain="[]" context="{'group_by':'sale_order_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</openerp>

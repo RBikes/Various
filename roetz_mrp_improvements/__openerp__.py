@@ -32,7 +32,7 @@
     'sequence': 6,
     'website' : 'www.roetz-bikes.com',
     'images' : [],
-    'depends' : ['base','mrp'],
+    'depends' : ['base','mrp','product'],
     'demo' : [],
     'data' : [
         'view.xml',

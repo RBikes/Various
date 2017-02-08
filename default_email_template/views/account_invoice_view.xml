@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='view_account_config_settings_default_email_template'>
+            <field name='name'>account.setting.default.email.template</field>
+            <field name='model'>account.config.settings</field>
+            <field name='inherit_id' ref="account.view_account_config_settings"/>
+            <field name='arch' type='xml'>
+                <field name="has_fiscal_year" position="after">
+                    <group name="account_default_template_id" string="Default Template">
+                        <field name='account_default_template_id'  style="width:40%"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='view_account_invoice_default_email_template'>
+            <field name='name'>account.invoice.deafult.email.template</field>
+            <field name='model'>account.invoice</field>
+            <field name='inherit_id' ref="account.invoice_form"/>
+            <field name='arch' type='xml'>
+                <data>
+                    <button name="action_invoice_sent" type="object" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" class="oe_highlight" groups="base.group_user" position="replace">
+                        <button name="action_invoice_sent_default_template" type="object" string="Send by Email" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" class="oe_highlight" groups="base.group_user"/>
+                    </button>
+                    <button name="action_invoice_sent" type="object" attrs="{'invisible':['|',('sent','=',False), ('state', '!=', 'open')]}" groups="base.group_user" position="replace">
+                        <button name="action_invoice_sent_default_template" type="object" string="Send by Email" attrs="{'invisible':['|',('sent','=',False), ('state', '!=', 'open')]}" groups="base.group_user"/>
+                    </button>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

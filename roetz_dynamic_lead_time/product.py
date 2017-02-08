@@ -56,8 +56,8 @@ class product_product(osv.osv):
                 res[each] = sale_delay_not_avail
         return res
 
-    _columns = {'sale_delay_dyn': fields.function(get_sale_delay, type="float", digits_compute=dp.get_precision('0 digits'),string="Lead Time"),
-               }
+#    _columns = {'sale_delay_dyn': fields.function(get_sale_delay, type="float", digits_compute=dp.get_precision('0 digits'),string="Lead Time"),
+#               }
 
 
 

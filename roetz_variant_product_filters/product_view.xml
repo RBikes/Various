@@ -10,18 +10,6 @@
            <!-- <field name="mode">primary</field> -->
             <field name="inherit_id" ref="product.product_search_form_view"/>
             <field name="arch" type="xml">
-<!--
-                <field name="name" position="replace">
-                   <field name="name" string="Product" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
-                </field>
-
-                <field name="product_variant_ids" position="replace">
-                    <field name="attribute_value_ids"/>
-                </field>
-                <field name="name" position="after">
-                   <field name="product_tmpl_id" string="Product Template"/>
-                </field>
--->
 
                 <xpath expr="//group[@string='Group by...']" position="before">
 			<group expand="0" string="Model">
@@ -33,6 +21,7 @@
 				<filter string="2014" domain="[('default_code','like', '14-')]"/>
 				<filter string="2015" domain="[('default_code','like', '15-')]"/>
 				<filter string="2016" domain="[('default_code','like', '16-')]"/>
+                <filter string="2017" domain="[('default_code','like', '17-')]"/>
 			</group>
 			<group expand="0" string="Type">
                     		<filter string="Men" domain="[('name','like', 'Men')]"/>
@@ -42,20 +31,18 @@
                             <filter string="5-Speed" domain="[('default_code','like', '-5-')]"/>
 			</group>
 			<group expand="0" string="Colour">
-                    		<filter string="Ruby Red" domain="[('default_code','like', '-RR-')]"/>
                     		<filter string="Matt Black" domain="[('default_code','like', '-MB-')]"/>
                     		<filter string="Matt Anthracite" domain="[('default_code','like', '-MA-')]"/>
                     		<filter string="Denim Blue" domain="[('default_code','like', '-DB-')]"/>
                     		<filter string="Sky Blue" domain="[('default_code','like', '-SB-')]"/>
-                    		<filter string="Wine Red" domain="[('default_code','like', '-WR-')]"/>
-                    		<filter string="Olive Green" domain="[('default_code','like', '-OG-')]"/>
+                    		<filter string="Midnight Blue" domain="[('default_code','like', '-NB-')]"/>
+                    		<filter string="Vintage Blue" domain="[('default_code','like', '-VB-')]"/>
                     		<filter string="Pastel Green" domain="[('default_code','like', '-PG-')]"/>
-                    		<filter string="Cream White" domain="[('default_code','like', '-CW-')]"/>
 			</group>
 			<group expand="0" string="Size">
+                    		<filter string="Extra Small" domain="[('default_code','like', '-Xs-')]"/>
                     		<filter string="Small" domain="[('default_code','like', '-Sm-')]"/>
-                    		<filter string="Medium" domain="[('default_code','like', '-Md-')]"/>
-                    		<filter string="Large" domain="[('default_code','like', '-La-')]"/>
+                    		<filter string="Regular" domain="[('default_code','like', '-Rg-')]"/>
                     		<filter string="Extra Large" domain="[('default_code','like', '-Xl-')]"/>
 			</group>
 			<group expand="0" string="Fenders and Chainguard">
@@ -83,6 +70,10 @@
                     		<filter string="No Lights" domain="[('default_code','not like', '-Sp'),('default_code','not like', '-Ag')]"/>
                     		<filter string="Spanninga Lights" domain="[('default_code','like', '-Sp')]"/>
                     		<filter string="Axa Greenline" domain="[('default_code','like', '-Ag')]"/>
+			</group>
+            <group expand="0" string="Lock (Vigour)">
+                    		<filter string="No Lock" domain="[('default_code','not like', '-Lk')]"/>
+                    		<filter string="Axa Solid" domain="[('default_code','like', '-Lk')]"/>
 			</group>
                     <!--<filter string='Product Template' name="template_id" domain="[]" context="{'group_by' : 'product_tmpl_id'}"/> -->
                 </xpath>

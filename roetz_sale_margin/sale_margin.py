@@ -76,22 +76,25 @@ class sale_order(osv.osv):
             result[sale.id] = 0.0
             for line in sale.order_line:
                 result[sale.id] += line.margin or 0.0
+            if sale.amount_untaxed > 0:
+                sale.write({'margin_perc': result[sale.id] / sale.amount_untaxed})
+            else:
+                sale.write({'margin_perc': 0.0})                
         return result
 
-    def _product_margin_perc(self, cr, uid, ids, field_name, arg, context=None):
-        result = {}
-        for sale in self.browse(cr, uid, ids, context=context):
-            margin = 0.0
-            amount = 0.0
-            result[sale.id] = 0.0
-            for line in sale.order_line:
-                amount += line.price_unit or 0.0
-                margin += line.margin or 0.0
-            if amount > 0:
-                result[sale.id] = margin / amount
-            else:
-                result[sale.id] = 0.0
-        return result
+#    def _product_margin_perc(self, cr, uid, ids, field_name, arg, context=None):
+#        result = {}
+#        margin_order = {}
+#        for sale in self.browse(cr, uid, ids, context=context):
+#            margin_order[sale.id] = 0.0
+#            for line in sale.order_line:
+#                margin_order[sale.id] += line.margin or 0.0
+#            if sale.amount_untaxed > 0:
+#                result[sale.id] = margin_order[sale.id] / sale.amount_untaxed
+#            else:
+#                result[sale.id] = 0.0
+#            	#result = 0.0
+#        return result
 
     def _get_order(self, cr, uid, ids, context=None):
         result = {}
@@ -104,10 +107,12 @@ class sale_order(osv.osv):
                 'sale.order.line': (_get_order, ['margin', 'purchase_price'], 20),
                 'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 20),
                 }),
-        'margin_perc': fields.function(_product_margin_perc, string='Margin Perc.', help="It gives profitability by calculating the difference between the Unit Price and the cost price.", store={
-                'sale.order.line': (_get_order, ['margin', 'purchase_price'], 20),
-                'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 20),
-                }),
+        'margin_perc': fields.float(string='Margin Perc.', help="It gives profitability by calculating the difference between the Unit Price and the cost price.")
+#      store={
+#        'margin_perc': fields.function(_product_margin_perc, string='Margin Perc.', help="It gives profitability by calculating the difference between the Unit Price and the cost price.", store={
+#                'sale.order.line': (_get_order, ['margin', 'purchase_price'], 20),
+#                'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 20),
+#                }),
     }
 
 

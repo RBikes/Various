@@ -17,6 +17,7 @@
                     <field name="priority2"/>
                     <field name="create_date"/>
                     <field name="date_planned"/>
+                    <field name="date_finished"/>
                     <field name="product_id"/>
                     <field name="product_qty" sum="Total Qty"/>
                     <field name="product_uom" groups="product.group_uom"/>
@@ -26,9 +27,9 @@
                     <field name="cycle_total" sum="Total Cycles"/>
                     -->
                     <field name="state"/>
-                    <field name="material_check"/>
+                    <!--<field name="material_check" invisible="1"/>-->
                     <field name="origin"/>
-                    <field name="partner_id"/>
+                    <field name="partner2_id"/>
                     <field name="issue" string="Note"/>
                   </tree>
                </xpath>
@@ -45,18 +46,43 @@
             <field name="arch" type="xml">
                     <field name="date_planned" position="replace">
                         <field name="date_planned"/>
+                        <field name="date_finished"/>
                         <field name="sequence2"/>
                         <field name="priority2"/>
                         <field name="material_check"/>
                     </field>
                     <field name="origin" position="replace">
                         <field name="origin"/>
-                        <field name="partner_id"/>
+                        <field name="partner2_id"/>
                         <field name="issue" string="Note"/>
                     </field>
             </field>
         </record>
-
+<!--
+        <record id="product_template_action_mrp" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{}</field>
+        </record>      
+      
+      <menuitem name="Product Management" 
+            id="menu_mrp_product_tree_mrp" 
+            action="product_template_action_mrp"
+            parent="mrp.menu_mrp_bom"/>
+       
+         <record id="product.template_product_tree_view_mrp" model="ir.ui.view">
+            <field name="name">product.template.common.tree.mrp</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+            <field name="name" position="after">
+                  <field name="id" string="ID"/>			   				  
+               </field>
+            </field>
+         </record>	
+-->
 
     </data>
 </openerp>

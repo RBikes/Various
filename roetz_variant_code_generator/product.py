@@ -48,6 +48,9 @@ class product_attribute_value(osv.osv):
     _columns = {'att_value_code': fields.char('Attribute Value Code', size=6, help="Max Size = 6 characters"),
                 'image_sequence': fields.integer('Image Sequence', default='1', help="Determines in what order attribute images are stacked"),
                 'parent_attr_value': fields.many2one('product.attribute.value', 'Parent Attr. Value'),
+                'show_in_picking': fields.boolean('Show on Picking List'),
+                'hide_on_mfg': fields.boolean('Hide on Mfg Order'),
+                #'show_on_web': fields.boolean('Show option on Website'),
 		  }
 
 #    _sql_constraints = [
@@ -226,6 +229,7 @@ class product_template(osv.osv):
                 'cost_price_variable': fields.boolean('Cost Price Variable?', help="Set True if cost price varies per variant"),
                 'web_product_description': fields.text('Web Product Description',translate=True, help="Description of the product as shown on website"),
                 'product_specs': fields.text('Product Specification',translate=True, help="Specifications of the product as shown on website"),
+                #'picking_hint': fields.text('Picking Hint',translate=True, help="List of standard items for this product template that acts as a reminder"),
                }			               
     _defaults = {'kanban_nr' : '0',
                 }
@@ -234,6 +238,11 @@ class product_product(osv.osv):
 
     _inherit = 'product.product'
 
+    def generate_EAN_codes_multi(self, cr, uid, ids, arg=None, context=None):
+        product_ids = self.browse(cr,uid,ids,context=context)
+        for product in product_ids:
+            product.generate_ean13()
+                
     def name_get(self, cr, user, ids, context=None):
         if context is None:
             context = {}
@@ -456,7 +465,8 @@ class product_product(osv.osv):
                     if os.path.isfile(filenametest):
                         filename = filenametest
                     else:
-                        filename = filedir + "/" + obj.name_template + "/" + obj.default_code + ".png"   
+                        filename = filedir + "/" + obj.name_template + "/" + obj.default_code + ".png"
+                    _logger.warning("IMAGE WORDT OPGEZOCHT: " + filename)    
                     f = open(filename, 'rb')
                     img = base64.encodestring(f.read())
                     f.close()
