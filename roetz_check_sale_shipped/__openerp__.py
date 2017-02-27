@@ -23,10 +23,12 @@
     'name' : 'Roetz Check Sale Shipped',
     'version' : '0.1',
     'author' : 'Roetz-Bikes BV',
-    'summary': 'Changes method of checking sale order delivery status. Checks transfers instead of procurements',
+    'summary': '',
     'description': """
-
-
+Changes method of checking sale order delivery status.
+Checks transfers instead of procurements. The shipped field is no longer
+stored and cannot be searched. By necessity, this module redefines the
+sale report without the shipped column.
     """,
     'category': 'Stock',
     'sequence': 6,
