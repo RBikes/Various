@@ -13,4 +13,4 @@ $('#men').click(function(){
     $('#men').toggleClass('big');
 });
 
-});
+};
