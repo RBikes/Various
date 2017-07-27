@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+	<data>
+        <template id="website.faq" name="FAQ">
+			<t t-call="website.layout">
+				<div id="wrap">
+					<div class="oe_structure"/>
+					<section class="container mt16">
+						<div class="panel-group" id="accordion">
+                            <t t-set="i" t-value="1"/>
+							  <t t-foreach="faqs" t-as="faq">
+								  <div t-if="i==1" class="panel panel-default">
+										<div class="panel-heading">
+											  <h4 class="panel-title">
+													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"  t-att-href="url_for('#collapse-'+ str(faq.id))">
+													  <span><span t-esc="i"/>. <span t-esc="faq.name"/></span>
+													</a>
+											  </h4>
+										</div>
+										<div t-attf-id="collapse-#{faq.id}"  class="panel-collapse collapse in">
+											  <div class="panel-body">
+                                                  <t t-raw="faq.answer"/>
+                                                  <div class="oe_structure"/>
+											  </div>
+										</div>
+								  </div>
+
+                                  <div t-if="i&gt;1" class="panel panel-default">
+										<div class="panel-heading">
+											  <h4 class="panel-title">
+													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"  t-att-href="url_for('#collapse-'+ str(faq.id))">
+													  <span><span t-esc="i"/>. <span t-esc="faq.name"/></span>
+													</a>
+											  </h4>
+										</div>
+										<div t-attf-id="collapse-#{faq.id}"  class="panel-collapse collapse">
+											  <div class="panel-body">
+												  <t t-raw="faq.answer"/>
+                                                  <div class="oe_structure"/>
+											  </div>
+										</div>
+								  </div>
+
+                                  <t t-set="i" t-value="i+1"/>
+							  </t>
+						</div>
+					</section>
+				</div>
+			</t>
+		</template>
+
+        <record id="menu_faq" model="website.menu">
+            <field name="name">FAQ</field>
+            <field name="url">/page/faq</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">50</field>
+        </record>
+
+	</data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

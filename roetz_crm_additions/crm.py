@@ -302,19 +302,19 @@ class mail_thread(osv.Model):
 
 
 ### Unsubcribe customers as follower from Invoice when validated ###
-class account_invoice(osv.Model):
-    _inherit = 'account.invoice'
-
-    @api.multi
-    def invoice_validate(self):
-        #partner_obj = self.pool.get('res.partner')
-        #fol_obj = self.pool.get('mail.followers')
-        #cust_fols = fol_obj.search(cr, SUPERUSER_ID, [('res_model', '=', self._name), ('res_id', '=', id), ('partner_id.user_id','!=',7), ('partner_id.user_id','!=',False)])
-        #cust_set = set(fol.partner_id.id for fol in fol_obj.browse(cr, SUPERUSER_ID, cust_fols))
-        cust_fols = self.env['mail.followers'].search([('res_model', '=', self._name), ('res_id', '=', self.id), ('partner_id.user_id','!=',7), ('partner_id.user_id','!=',False)])
-        self.message_unsubscribe(cust_fols)        
-
-        return self.write({'state': 'open'})
+#class account_invoice(osv.Model):
+#    _inherit = 'account.invoice'
+#
+#    @api.multi
+#    def invoice_validate(self):
+#        #partner_obj = self.pool.get('res.partner')
+#        #fol_obj = self.pool.get('mail.followers')
+#        #cust_fols = fol_obj.search(cr, SUPERUSER_ID, [('res_model', '=', self._name), ('res_id', '=', id), ('partner_id.user_id','!=',7), ('partner_id.user_id','!=',False)])
+#        #cust_set = set(fol.partner_id.id for fol in fol_obj.browse(cr, SUPERUSER_ID, cust_fols))
+#        cust_fols = self.env['mail.followers'].search([('res_model', '=', self._name), ('res_id', '=', self.id), ('partner_id.user_id','!=',7), ('partner_id.user_id','!=',False)])
+#        self.message_unsubscribe(cust_fols)        
+#
+#        return self.write({'state': 'open'})
 
 
 

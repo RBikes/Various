@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="payment_acquirer_mollie" model="payment.acquirer">
+            <field name="name">Mollie</field>
+            <field name="provider">mollie</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="mollie_acquirer_button"/>
+            <field name="environment">test</field>
+            <field name="pre_msg"><![CDATA[
+<p>You will be redirected to the MOLLIE website after clicking on the pay now.</p>]]></field>
+        </record>
+    </data>
+</openerp>

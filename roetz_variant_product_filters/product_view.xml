@@ -42,7 +42,7 @@
 			<group expand="0" string="Size">
                     		<filter string="Extra Small" domain="[('default_code','like', '-Xs-')]"/>
                     		<filter string="Small" domain="[('default_code','like', '-Sm-')]"/>
-                    		<filter string="Regular" domain="[('default_code','like', '-Rg-')]"/>
+                    		<filter string="Regular" domain="[('default_code','like', '-Re-')]"/>
                     		<filter string="Extra Large" domain="[('default_code','like', '-Xl-')]"/>
 			</group>
 			<group expand="0" string="Fenders and Chainguard">

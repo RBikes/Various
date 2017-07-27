@@ -85,9 +85,9 @@ class stock_move(osv.osv):
             if move.location_id.usage == 'internal':
                 #available = move.product_avail_by_location(move.product_id.id, move.location_id.id)
                 available = move.product_id.virtual_available
-                _logger.warning(move.location_id.complete_name)
-                _logger.warning(move.product_id.name)
-                _logger.warning(available)
+                #_logger.warning(move.location_id.complete_name)
+                #_logger.warning(move.product_id.name)
+                #_logger.warning(available)
                 #_logger.warning(move.availability)
                 if available < move.product_uom_qty:
                 #if move.availability < move.product_uom_qty:

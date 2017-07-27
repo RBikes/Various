@@ -28,6 +28,21 @@ class stock_picking(osv.Model):
     _inherit = 'stock.picking'
     _order = 'min_date asc'
 
+### Purchase Orders: Make Supplier Reference editable in all states ###
+class purchase_order(osv.Model):
+    _inherit = 'purchase.order'
+
+    _columns = {
+        'partner_ref': fields.char('Supplier Reference', states={'confirmed':[('readonly',False)],
+                                                                 'approved':[('readonly',True)],
+                                                                 'done':[('readonly',True)]},
+                                   copy=False,
+                                   help="Reference of the sales order or bid sent by your supplier. "
+                                        "It's mainly used to do the matching when you receive the "
+                                        "products as this reference is usually written on the "
+                                        "delivery order sent by your supplier."),
+      }
+
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

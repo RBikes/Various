@@ -48,7 +48,7 @@
         </record>
 
 
-<!-- Verberg Invoice type ID in Sales Order Tree -->
+<!-- Verberg Invoice type ID in Sales Order Tree 
 
         <record id="roetz_custom_backend_views.sale_journal_sale_order_tree_custom" model="ir.ui.view">
             <field name="name">roetz_custom_backend_views.sale_journal_sale_order_tree_custom</field>
@@ -58,7 +58,7 @@
                <field name="invoice_type_id" position="replace"/>
             </field>
         </record>
-
+-->
 
     </data>
 </openerp>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+         
+        <record model="ir.ui.view" id="view_faq_form">
+            <field name="name">faq.form</field>
+            <field name="model">faq</field>
+            <field name="arch" type="xml">
+ 
+                <form string="faq">
+                    <group>
+                        <field name="website_publish"/>
+                        <field name="name"/>
+                        <field  name="answer"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_faq">
+            <field name="name">faq</field>
+            <field name="res_model">faq</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Add FAQ</p>
+            </field>
+        </record>
+         
+        <record model="ir.ui.view" id="view_faq_tree">
+            <field name="name">faq.tree</field>
+            <field name="model">faq</field>
+            <field name="arch" type="xml">
+                <tree string="faq">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="website_publish"/>
+                </tree>
+            </field>
+        </record>     
+ 
+
+ 
+ 
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_website_config_settings_custom">
+            <field name="name">Website settings</field>
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Menu']" position="before">
+                    <group string="FAQ">
+                        <button type="action"
+                            name="%(faq.action_faq)d"
+                            string="Add FAQ" class="oe_link"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -334,7 +334,7 @@ img.img-responsive.center-block {width: 70%;}
 }
 
 @media (max-width: 769px) {
-.image2 img {left: -520px; margin-left: 30%; position: relative; margin-top: 5px;}
+.image2 img {left: -580px; margin-left: 40%; position: relative; margin-top: 5px;}
 .vakje2 {max-height: 300px;}
 }
 
@@ -529,6 +529,8 @@ ul.wizard li.text-muted {background: #fff !important;}
 
 /* -----  Blog */
 .js_fullheight {min-height: 500px !important;}
+.js_halfheight {min-height: 250px !important;}
+.label-blogtag {background-color: gray !important;}
 .cover_footer {height: 30vh !important;}
 
 /* -----  Contact */
@@ -1182,3 +1184,5 @@ center-bike-lightbox{
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+

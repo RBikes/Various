@@ -1,0 +1,52 @@
+diff --git a/roetz_check_sale_shipped/__init__.py b/roetz_check_sale_shipped/__init__.py
+index 3334d6b..ebe708a 100755
+--- a/roetz_check_sale_shipped/__init__.py
++++ b/roetz_check_sale_shipped/__init__.py
+@@ -20,5 +20,6 @@
+ ##############################################################################
+ 
+ import main
++from . import sale_report
+ 
+ # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+diff --git a/roetz_check_sale_shipped/__openerp__.py b/roetz_check_sale_shipped/__openerp__.py
+index bb2bdb3..f8bc688 100755
+--- a/roetz_check_sale_shipped/__openerp__.py
++++ b/roetz_check_sale_shipped/__openerp__.py
+@@ -23,10 +23,12 @@
+     'name' : 'Roetz Check Sale Shipped',
+     'version' : '0.1',
+     'author' : 'Roetz-Bikes BV',
+-    'summary': 'Changes method of checking sale order delivery status. Checks transfers instead of procurements',
++    'summary': '',
+     'description': """
+-
+-
++Changes method of checking sale order delivery status.
++Checks transfers instead of procurements. The shipped field is no longer
++stored and cannot be searched. By necessity, this module redefines the
++sale report without the shipped column.
+     """,
+     'category': 'Stock',
+     'sequence': 6,
+diff --git a/roetz_check_sale_shipped/sale_report.py b/roetz_check_sale_shipped/sale_report.py
+new file mode 100644
+index 0000000..2277ed7
+--- /dev/null
++++ b/roetz_check_sale_shipped/sale_report.py
+@@ -0,0 +1,15 @@
++# coding: utf-8
++from openerp.osv import orm
++
++
++class SaleReport(orm.Model):
++    _inherit = 'sale.report'
++
++    def _select(self):
++        res = super(SaleReport, self)._select()
++        return res.replace(
++            ', s.shipped, s.shipped::integer as shipped_qty_1', '')
++
++    def _group_by(self):
++        res = super(SaleReport, self)._group_by()
++        return res.replace(', s.shipped', '')

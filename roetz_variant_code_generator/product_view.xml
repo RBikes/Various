@@ -77,13 +77,27 @@
     		<field name="model">product.product</field>
     		<field name="inherit_id" ref="product.product_product_tree_view"/>
     		<field name="arch" type="xml">
+            <field name="price" position="after">
+                    <field name="standard_price"/>
+                    <field name="variant_cost_price" string="Variant Cost Price"/>	
+                    <field name="price" invisible="not context.get('pricelist',False)"/>
+                    <field name="kanban_nr" string="Bak Nr"/>
+                    <field name="ean13"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+             </field>
+             <field name="attribute_value_ids" position="replace"> 
+                 <field name="attribute_value_ids" widget="many2many_tags" invisible="1"/>
+             </field>
+              
+          <!--    
 		  <xpath expr="//tree[@string='Product Variants']" position="replace">
 		    <tree string="Product Variants">
                     <field name="default_code"/>
                     <field name="name"/>
                     <field name="attribute_value_ids" widget="many2many_tags" invisible="1"/>
                     <field name="lst_price"/>
-                    <field name="standard_price" string="Standard Cost Price"/>	
+                    <field name="standard_price"/>
                     <field name="variant_cost_price" string="Variant Cost Price"/>	
                     <field name="price" invisible="not context.get('pricelist',False)"/>
                     <field name="uom_id"/>
@@ -93,6 +107,7 @@
                     <field name="product_tmpl_id" invisible="1"/>
 		    </tree>
 		  </xpath>
+-->
 		</field>	
 	</record>
 
@@ -122,12 +137,10 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
-               <field name="standard_price" position="after">
-                    <button name="calc_cost_prices" type="object" string="Compute price from BoM"
-                            attrs="{'invisible': [('cost_method', '!=', 'standard')]}"
-                             groups="stock_account.group_inventory_valuation"/>
-               </field>
                <group name="general" position="inside">
+                   <!-- <button name="calc_cost_prices" type="object" string="Compute price from BoM"
+                            attrs="{'invisible': [('cost_method', '!=', 'standard')]}"
+                             groups="stock_account.group_inventory_valuation"/> -->
                     <field name="cost_price_variable"/>
                     <field name="cost_price_update"/>
                </group>
@@ -140,21 +153,25 @@
                   <separator string="Website Product Specifications" colspan="4"/>
                   <field name="product_specs" string="Product Specifications"/>			  
                </field>
+               <field name="loc_case" position="after">
+                   <field name="kanban_nr" string="Bak Nr"/>
+               </field>
             </field>
          </record>	
 
-<!-- Product Template Form View Stock gedeelte -->
+<!-- Product Template Form View Stock gedeelte 
 	 
          <record id="roetz_variant_code_generator.template_template_form_view_custom" model="ir.ui.view">
             <field name="name">roetz_variant_code_generator.template.common.form.custom</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
-               <field name="loc_case" position="after">
+              <field name="loc_case" position="after">
                    <field name="kanban_nr" string="Bak Nr"/>
               </field>
             </field>
          </record>
+-->
       
  <!-- Cost price Update Menu and Actions -->
 

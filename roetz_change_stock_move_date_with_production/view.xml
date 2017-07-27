@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+     
+      <!-- Toevoegen attribuutcode en parent aan overzicht attribuutwaarden -->
+
+    	<record model="ir.ui.view" id="roetz_change_stock_move_date_with_production_form_view">
+    		<field name="name">roetz_change_stock_move_date_with_production.change_date</field>
+    		<field name="model">mrp.production</field>
+    		<field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+    		<field name="arch" type="xml">
+			<field name="date_planned" position="replace">
+				<field name="date_planned" attrs="{'readonly': [['state', 'not in', ['draft','confirmed','ready']]]}"  on_change="on_change_mfg_plan_date(date_planned,context)"/>
+
+			</field>
+		</field>	
+	</record>
+
+    </data>
+</openerp>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="mollie_acquirer_button">
+            <form t-att-action="tx_url" method="post" target="_self">
+                <!-- CREDENTIAL -->
+                <input type="hidden" name="api_key" t-att-value="tx_values['api_key']"/>
+                <input type="hidden" name="redirectUrl" t-att-value="tx_values['redirectUrl']"/>
+                <input type="hidden" name="amount" t-att-value="tx_values['amount']"/>
+                <input type="hidden" name="description" t-att-value="tx_values['description']"/>
+                <input type="hidden" name="order_id" t-att-value="tx_values['order_id']"/>
+                <input type="hidden" name="locale" t-att-value="tx_values['locale']"/>
+                <!-- SUBMIT-->
+                <button type="submit" width="100px"
+                    t-att-class="submit_class">
+                    <img t-if="not submit_txt" src="/payment_mollie/static/src/img/mollie_icon.png"/>
+                    <span t-if="submit_txt"><t t-esc="submit_txt"/> <span class="fa fa-long-arrow-right"/></span>
+                </button>
+            </form>
+        </template>
+    </data>
+</openerp>
